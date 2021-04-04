@@ -1,6 +1,6 @@
 # Assessor-Scraper
 A web scraper for Vision Government Solutions public assessor record databases
-Uses RSelenium drive a remote browser and navigate the website to the page for each respective address
+Uses RSelenium drive a remote browser to the webpage for each respective address
 Then uses RVest to parse the HTML for each address, creating a list object for each address that contains owner name & address, sales history, and building attributes
 This all happens in a function, which is then passed to purrr::map() to create a list equal to the length of the addresses vector that is passed to it
 Then condenses the list into three data frames, one for owner info, one for sales history, and one for building attributes and writes to a csv
