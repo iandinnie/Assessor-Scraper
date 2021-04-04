@@ -70,7 +70,6 @@ get_assessor_info <- possibly(function(address){
 ################################################################################    
     # using rvest to pull in the info from the page
     
-    # for the ith address, create a new item in the list containing the url for the ith address's assessor page
     url_pull <- url[[1]] %>%
     
     # read in the html  
@@ -182,22 +181,10 @@ write_csv(Owners_df,"Owner_p1_3_30.csv")
 write_csv(Sales_df,"Sales_p1_3_30.csv")
 
 # update the address list
-#new_address_list <- addresses[match(names(allinfo_p2[length(allinfo_p2)]), addresses) + 1 :length(addresses)]
-#new_address_list <- new_address_list[!is.na(new_address_list)]
+new_address_list <- addresses[match(names(allinfo_p3[length(allinfo_p3)]), addresses) + 1 :length(addresses)]
+new_address_list <- new_address_list[!is.na(new_address_list)]
 ```
 
-```{r}
-# run a second time with new address list
-
-endtime <- now()+8*60*60
-
-allinfo_p3 <- map(new_address_list,
-            get_assessor_info)
-
-names(allinfo_p3) <- new_address_list[1:length(allinfo_p3)]
-allinfo_p3 <- allinfo_p3[allinfo_p3 != "Drop this"]
-save(allinfo_p3, file = "allinfo3_30_pass1.RData")
-```
 
 
 
