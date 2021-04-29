@@ -173,36 +173,4 @@ Attribute_df <- Attribute_df %>%
 write_csv(Attribute_df,"Attributes_p1_3_30.csv")
 write_csv(Owners_df,"Owner_p1_3_30.csv")
 write_csv(Sales_df,"Sales_p1_3_30.csv")
-
-# update the address list
-new_address_list <- addresses[match(names(allinfo[length(allinfo)]), addresses) + 1 :length(addresses)]
-new_address_list <- new_address_list[!is.na(new_address_list)]
 ```
-
-
-
-
-
-# this is a pretty dumb way of dealing with the fact that the tables pulled from the records sometimes have different dimensions
-trouble_v <- c("16D MILESTONE RD","157 MAIN ST","130B MAIN ST","13 NEW ST","10G CROWS NEST WY","1 GULLY RD")
-trouble_df <- allinfo2[trouble_v]
-acquired <- names(allinfo2)[!names(allinfo2) %in% trouble_v]
-allinfoproper <- allinfo2[acquired]
-
-tobind <- list()
-for(i in 1:length(names(allinfoproper))){
-  try(allinfoproper[[names(allinfoproper)[i]]][["Attributes"]] <-
-        
-        allinfoproper[[names(allinfoproper)[i]]][["Attributes"]]%>%
-    
-        select(Address, `Style:`, Model, `Total Bedrooms:`, `Num Park`))
-  
-  if(allinfoproper[[names(allinfoproper)[i]]][["Attributes"]] %>% ncol() == 5){
-  
-    tobind[[length(tobind)+1]] <- allinfoproper[[names(allinfoproper)[i]]]
-  
-    names(tobind)[length(tobind)] <- tobind[[length(tobind)]][["Attributes"]]$Address
-  }
-}
-
-addresses_to_bind <- names(tobind)
