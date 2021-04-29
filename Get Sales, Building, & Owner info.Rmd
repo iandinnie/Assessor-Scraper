@@ -13,12 +13,6 @@ library(rlist)
 library(plyr)
 library(hablar)
 ```
-
-```{r}
-# read in list of addresses
-addresses <- read_xlsx("Matched SF addresses.xlsx")$Address
-```
-
 ```{r}
 # this chunk initiates a new selenium server, if you get an error, it's usually because the port is already in use, change the first argument of rs(Driver) to four random digits followed by an L
 rD <- rsDriver(2673L, "firefox")
@@ -126,10 +120,10 @@ get_assessor_info <- possibly(function(address){
 
 ```{r}
 endtime <- now()+3*60*60
+addresses <- c("1 A ST", "43 MILLBROOK RD", "9 OCEAN AV")
+allinfo <- map(addresses,get_assessor_info)
 
-allinfo <- map(addresses_to_bind,get_assessor_info)
-
-names(allinfo) <- addresses_to_bind[1:length(allinfo)]
+names(allinfo) <- addresses[1:length(allinfo)]
 allinfo <- allinfo[allinfo != "Drop this"]
 save(allinfo, file = "allinfo.RData")
 ```
