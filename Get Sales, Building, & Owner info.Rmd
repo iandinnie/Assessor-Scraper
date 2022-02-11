@@ -7,15 +7,10 @@ output: html_document
 library(tidyverse)
 library(rvest)
 library(RSelenium)
-library(lubridate)
-library(readxl)
-library(rlist)
-library(plyr)
-library(hablar)
 ```
 ```{r}
 # this chunk initiates a new selenium server, if you get an error, it's usually because the port is already in use, change the first argument of rs(Driver) to four random digits followed by an L
-rD <- rsDriver(2673L, "firefox")
+rD <- rsDriver(2177L, "chrome", chromever = "97.0.4692.36")
 rmDR <- rD[["client"]]
 ```
 
@@ -34,7 +29,7 @@ get_assessor_info <- possibly(function(address){
                  ", I will stop at ",
                  endtime))
     # take small breaks so we don't cause problems for their server
-    Sys.sleep(runif(1,5,25))
+    Sys.sleep(runif(1,1, 5))
     # navigate to the first page
     rmDR$navigate("http://gis.vgsi.com/nantucketma/Search.aspx")
     Sys.sleep(runif(1,1,5))
@@ -115,7 +110,6 @@ get_assessor_info <- possibly(function(address){
   }
 },
     otherwise = "Address not Found")
-
 ```
 
 ```{r}
